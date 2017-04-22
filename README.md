@@ -4,7 +4,7 @@
 
 ### Usage
 
-* `lr-server --port 35729 --path "src/js/**/*.js" --path "src/css/**/*.css"`
+* `./node_modules/.bin/lr-server --port 35729 --path "src/js/**/*.js" --path "src/css/**/*.css"`
 * `port` argument is optional, and defaults to `35729`.
 * At least one `path` argument must be specified.
 
