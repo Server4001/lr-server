@@ -1,0 +1,93 @@
+#!/usr/bin/env node
+
+'use strict';
+
+const path = require('path');
+const Gaze = require('gaze').Gaze;
+const tinylr = require('tiny-lr');
+const _ = require('lodash');
+const waiting = 'Waiting...';
+let watchers = [];
+
+let options = {
+    spawn: true, // TODO : REMOVE.
+    interrupt: false, // TODO : REMOVE.
+    debounceDelay: 500,
+    interval: 100,
+    event: [ 'all' ], // TODO : REMOVE.
+    reload: false, // TODO : REMOVE.
+    forever: true, // TODO : REMOVE.
+    atBegin: false, // TODO : REMOVE.
+    livereload: true, // TODO : REMOVE.
+    cwd: process.cwd(),
+    livereloadOnError: true // TODO : REMOVE.
+};
+
+let gazeOptions = {
+    debounceDelay: 500,
+    interval: 100,
+    cwd: process.cwd()
+};
+
+let patterns = [
+    // 'src/**/*.js'
+    'src/**/*'
+];
+
+let eventCwd = process.cwd();
+
+let lrOptions = { port: 35729 };
+const host = '*' + ':' + lrOptions.port;
+let server = tinylr(lrOptions);
+server.server.removeAllListeners('error');
+server.server.on('error', function(err) {
+    if (err.code === 'EADDRINUSE') {
+        console.error('Port ' + lrOptions.port + ' is already in use by another process.');
+    } else {
+        console.error(err);
+    }
+    process.exit(1);
+});
+server.listen(lrOptions.port, undefined, function(err) {
+    if (err) {
+        return console.error(err);
+    }
+    console.log('Live reload server started on ' + host);
+
+    let g = new Gaze(patterns, gazeOptions, function(err) {
+        if (err) {
+            if (typeof err === 'string') {
+                err = new Error(err);
+            }
+
+            throw err;
+        }
+
+        console.log('Watching files...');
+
+        // On changed/added/deleted
+        this.on('all', function(status, filepath) {
+            filepath = path.relative(eventCwd, filepath);
+
+            if (filepath === '') {
+                return;
+            }
+
+            // let changedFiles = Object.create(null);
+            // changedFiles[filepath] = status;
+            // this.livereload.trigger(Object.keys(changedFiles));
+            // this.livereload.trigger([ filepath ]);
+
+            server.changed({ body: { files: [ filepath ] } });
+        });
+
+        this.on('error', function(err) {
+            if (typeof err === 'string') {
+                console.log("it is a string", err);
+                err = new Error(err);
+            }
+
+            throw err;
+        });
+    });
+});
