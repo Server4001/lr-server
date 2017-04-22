@@ -13,5 +13,11 @@
     "gaze": "1.1.2",
     "minimist": "1.2.0",
     "tiny-lr": "1.0.3"
+  },
+  "bin": {
+    "lr-server": "./bin/lr-server"
+  },
+  "engines": {
+    "node": ">= 6.0.x"
   }
 }
