@@ -1,10 +1,22 @@
 #!/usr/bin/env node
 
+// TODO : BETTER FILE LEVEL DOCBLOCK.
+// Usage: ./bin/lr-server --port 35729 --path "src/js/**/*.js" --path "src/css/**/*.css"
+
 'use strict';
 
+let argv = require('minimist')(process.argv.slice(2));
 const path = require('path');
 const Gaze = require('gaze').Gaze;
 const livereload = require('tiny-lr');
+
+if (argv.path === undefined) {
+    console.error('Must pass in --path argument.');
+    process.exit(1);
+}
+if ((typeof argv.path) === 'string') {
+    argv.path = [ argv.path ];
+}
 
 const gazeOptions = {
     debounceDelay: 500,
@@ -13,13 +25,8 @@ const gazeOptions = {
 };
 
 const lrOptions = {
-    port: 35729
+    port: (argv.port || argv.p || 35729)
 };
-
-const patterns = [
-    // 'src/**/*.js'
-    'src/**/*'
-];
 
 const eventCwd = process.cwd();
 const host = '*' + ':' + lrOptions.port;
@@ -46,7 +53,7 @@ server.listen(lrOptions.port, undefined, function(err) {
     }
     console.log('Live reload server started on ' + host);
 
-    new Gaze(patterns, gazeOptions, function(err) {
+    new Gaze(argv.path, gazeOptions, function(err) {
         if (err) {
             if (typeof err === 'string') {
                 err = new Error(err);

@@ -1,17 +1,17 @@
 {
   "name": "lr-server",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "0.1.0",
+  "description": "Livereload server for use with the LiveReload client extension for the Chrome browser.",
+  "main": "bin/lr-server",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Brice Bentler",
+  "license": "MIT",
   "dependencies": {
     "gaze": "1.1.2",
-    "lodash": "4.17.4",
+    "minimist": "1.2.0",
     "tiny-lr": "1.0.3"
   }
 }
