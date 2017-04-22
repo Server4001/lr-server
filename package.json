@@ -1,7 +1,7 @@
 {
   "name": "lr-server",
   "version": "0.1.0",
-  "description": "Livereload server for use with the LiveReload client extension for the Chrome browser.",
+  "description": "Command line Livereload server for use with the LiveReload Chrome browser extension.",
   "main": "bin/lr-server",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
