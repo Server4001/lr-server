@@ -19,8 +19,8 @@ if ((typeof argv.path) === 'string') {
 }
 
 const gazeOptions = {
-    debounceDelay: 500,
-    interval: 100,
+    debounceDelay: (argv.debounce || argv.d || 500),
+    interval: (argv.interval || argv.i || 1000),
     cwd: process.cwd()
 };
 
@@ -29,7 +29,7 @@ const lrOptions = {
 };
 
 const eventCwd = process.cwd();
-const host = '*' + ':' + lrOptions.port;
+const host = '127.0.0.1' + ':' + lrOptions.port;
 
 /**
  * @var {Object} server
