@@ -1,14 +1,19 @@
 #!/usr/bin/env node
 
-// TODO : BETTER FILE LEVEL DOCBLOCK.
-// Usage: ./bin/lr-server --port 35729 --path "src/js/**/*.js" --path "src/css/**/*.css"
-
 'use strict';
 
 let argv = require('minimist')(process.argv.slice(2));
 const path = require('path');
+const fs = require('fs');
 const Gaze = require('gaze').Gaze;
 const livereload = require('tiny-lr');
+
+if (argv.h !== undefined || argv.help !== undefined) {
+    const usagePath = path.join(__dirname, '../', 'usage.txt');
+    console.log(fs.readFileSync(usagePath, 'utf8'));
+
+    process.exit(0);
+}
 
 if (argv._.length < 1) {
     console.error('Must pass in at least one path argument.');
@@ -16,13 +21,13 @@ if (argv._.length < 1) {
 }
 
 const gazeOptions = {
-    debounceDelay: (argv.debounce || argv.d || 500),
-    interval: (argv.interval || argv.i || 1000),
+    debounceDelay: (argv.d || argv.debounce || 500),
+    interval: (argv.i || argv.interval || 1000),
     cwd: process.cwd()
 };
 
 const lrOptions = {
-    port: (argv.port || argv.p || 35729)
+    port: (argv.p || argv.port || 35729)
 };
 
 const paths = argv._;
