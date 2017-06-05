@@ -6,9 +6,13 @@ emits reload event.
 Options:
   -p, --port                    Livereload server port (DEFAULT 35729).
                                                                        [integer]
+  -o, --host                    Livereload server host (DEFAULT 127.0.0.1).
+                                                                        [string]
   -d, --debounce                Delay, in milliseconds, for events called in
                                 succession for same file (DEFAULT 500) [integer]
   -i, --interval                File watch interval, in milliseconds. Time
                                 between change event and callback.
                                 (DEFAULT 1000)                         [integer]
+  -v, --version                 Display the package version number.
+  -h, --help                    Display this help message.
 
