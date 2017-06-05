@@ -5,8 +5,7 @@
 let argv = require('minimist')(process.argv.slice(2));
 const path = require('path');
 const fs = require('fs');
-const Gaze = require('gaze').Gaze;
-const livereload = require('tiny-lr');
+const liveReload = require('../lib/liveReload');
 
 if (argv.h !== undefined || argv.help !== undefined) {
     return fs.createReadStream(path.join(__dirname, '..', 'usage.txt'))
@@ -23,71 +22,12 @@ if (argv._.length < 1) {
     process.exit(1);
 }
 
-const gazeOptions = {
+const options = {
+    cwd: process.cwd(),
     debounceDelay: (argv.d || argv.debounce || 500),
+    host: (argv.o || argv.host || '127.0.0.1'),
     interval: (argv.i || argv.interval || 1000),
-    cwd: process.cwd()
-};
-
-const lrOptions = {
     port: (argv.p || argv.port || 35729)
 };
 
-const paths = argv._;
-const eventCwd = process.cwd();
-const host = '127.0.0.1' + ':' + lrOptions.port;
-
-/**
- * @var {Object} server
- */
-let server = livereload(lrOptions);
-
-server.server.removeAllListeners('error');
-
-server.server.on('error', function(err) {
-    if (err.code === 'EADDRINUSE') {
-        console.error('Port ' + lrOptions.port + ' is already in use by another process.');
-    } else {
-        console.error(err);
-    }
-    process.exit(1);
-});
-
-server.listen(lrOptions.port, undefined, function(err) {
-    if (err) {
-        return console.error(err);
-    }
-    console.log('Live reload server started on ' + host);
-
-    new Gaze(paths, gazeOptions, function(err) {
-        if (err) {
-            if (typeof err === 'string') {
-                err = new Error(err);
-            }
-
-            throw err;
-        }
-
-        console.log('Watching files...');
-
-        // On changed/added/deleted
-        this.on('all', function(status, filePath) {
-            filePath = path.relative(eventCwd, filePath);
-
-            if (filePath === '') {
-                return;
-            }
-
-            server.changed({ body: { files: [ filePath ] } });
-        });
-
-        this.on('error', function(err) {
-            if (typeof err === 'string') {
-                console.log("it is a string", err);
-                err = new Error(err);
-            }
-
-            throw err;
-        });
-    });
-});
+liveReload(argv._, options);
