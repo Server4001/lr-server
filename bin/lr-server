@@ -2,7 +2,23 @@
 
 'use strict';
 
+/**
+ * @var {Object} argv
+ * @property {Number} d
+ * @property {String} o
+ * @property {Number} i
+ * @property {Number} p
+ * @property {*} h
+ * @property {*} v
+ * @property {Number} debounce
+ * @property {String} host
+ * @property {Number} interval
+ * @property {Number} port
+ * @property {*} help
+ * @property {*} version
+ */
 let argv = require('minimist')(process.argv.slice(2));
+
 const path = require('path');
 const fs = require('fs');
 const liveReload = require('../lib/liveReload');
