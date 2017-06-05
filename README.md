@@ -14,4 +14,3 @@
 ### TODO
 
 * Tests
-* Refactor executable code.
