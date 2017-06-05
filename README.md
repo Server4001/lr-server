@@ -15,4 +15,3 @@
 
 * Tests
 * Refactor executable code.
-* Help command.
