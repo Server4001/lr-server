@@ -9,10 +9,13 @@ const Gaze = require('gaze').Gaze;
 const livereload = require('tiny-lr');
 
 if (argv.h !== undefined || argv.help !== undefined) {
-    const usagePath = path.join(__dirname, '..', 'usage.txt');
-    console.log(fs.readFileSync(usagePath, 'utf8'));
+    return fs.createReadStream(path.join(__dirname, '..', 'usage.txt'))
+        .pipe(process.stdout)
+        .on('close', function () { process.exit(1) });
+}
 
-    process.exit(0);
+if (argv.v !== undefined || argv.version !== undefined) {
+    return console.log(require('../package.json').version);
 }
 
 if (argv._.length < 1) {
