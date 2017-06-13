@@ -1,6 +1,6 @@
 {
   "name": "lr-server",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Command line Livereload server for use with the LiveReload Chrome browser extension.",
   "main": "bin/lr-server",
   "scripts": {
