@@ -9,5 +9,6 @@
 * Use `--port` or `-p` to specify port for the livereload server (default 35729).
 * Use `--host` or `-o` to specify the host for the livereload server (default 127.0.0.1).
 * Use `--debounce` or `-d` to specify delay for events called in succession for same file (default 500 milliseconds).
+* Use `--reload-delay` or `-r` to specify delay between file events and Livereload being called (default 0 milliseconds).
 * Use `--interval` or `-i` to specify file watch interval (default 1000 milliseconds).
 * Use `--quiet` or `-q` to specify that no console logging should be used for file events.

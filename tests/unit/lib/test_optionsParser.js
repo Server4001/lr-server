@@ -22,6 +22,7 @@ describe('Options Parser', () => {
         expect(parsedOptions.interval).to.equal(1000);
         expect(parsedOptions.port).to.equal(35729);
         expect(parsedOptions.verbose).to.equal(true);
+        expect(parsedOptions.reloadDelay).to.equal(0);
     });
 
     it('should allow debounce delay override', () => {
@@ -81,6 +82,25 @@ describe('Options Parser', () => {
         expect(parsedOptions.interval).to.equal(interval);
     });
 
+    it('should allow reload delay override', () => {
+        const delay = 5000;
+        const parsedOptions1 = optionsParser({ r: delay });
+        const parsedOptions2 = optionsParser({ 'reload-delay': delay });
+
+        expect(parsedOptions1.reloadDelay).to.equal(delay);
+        expect(parsedOptions2.reloadDelay).to.equal(delay);
+    });
+
+    it('should prefer r over reload-delay for reload delay override', () => {
+        const delay = 500;
+        const parsedOptions = optionsParser({
+            r: delay,
+            'reload-delay': -123
+        });
+
+        expect(parsedOptions.reloadDelay).to.equal(delay);
+    });
+
     it('should allow port override', () => {
         const port = 1234;
         const parsedOptions1 = optionsParser({ p:  port });
@@ -126,6 +146,7 @@ describe('Options Parser', () => {
             'host',
             'interval',
             'port',
+            'reloadDelay',
             'verbose'
         ]);
     });

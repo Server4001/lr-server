@@ -12,5 +12,5 @@ describe('LiveReload', () => {
         });
 
         expect(server.options.port).to.equal(port);
-    })
+    });
 });

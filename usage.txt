@@ -10,6 +10,9 @@ Options:
                                                                         [string]
   -d, --debounce                Delay, in milliseconds, for events called in
                                 succession for same file (DEFAULT 500) [integer]
+  -r, --reload-delay            Delay, in milliseconds, between file events and
+                                Livereload execution. Occurs for all events.
+                                (DEFAULT 0)                            [integer]
   -i, --interval                File watch interval, in milliseconds. Time
                                 between change event and callback.
                                 (DEFAULT 1000)                         [integer]
