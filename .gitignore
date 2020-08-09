@@ -1,6 +1,10 @@
+# IDEs
 /.idea
+
+# NPM
 /node_modules
-/coverage
-/test.tap
 /npm-debug.log
 
+# istanbul
+/coverage
+/.nyc_output
