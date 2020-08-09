@@ -20,7 +20,7 @@
     "lr-server": "./bin/lr-server"
   },
   "engines": {
-    "node": ">= 6.0.x"
+    "node": ">= 12.0.x"
   },
   "dependencies": {
     "gaze": "^1.1.3",
