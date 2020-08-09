@@ -26,3 +26,15 @@ Then you can run the lr-server bin:
 ```bash
 ./bin/lr-server /path/to/some.tpl /path/to/another.css
 ```
+
+Tests can be run via npm scripts:
+
+```bash
+npm test
+```
+
+For code coverage reports use the following. the `./coverage` dir will have HTML files showing actual lines covered.
+
+```bash
+npm run test:coverage
+```
