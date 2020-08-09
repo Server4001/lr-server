@@ -12,5 +12,8 @@ describe('LiveReload', () => {
         });
 
         expect(server.options.port).to.equal(port);
+
+        // Shut down the server, mocha won't kill it by default.
+        server.close();
     });
 });

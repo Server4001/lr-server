@@ -12,3 +12,29 @@
 * Use `--reload-delay` or `-r` to specify delay between file events and Livereload being called (default 0 milliseconds).
 * Use `--interval` or `-i` to specify file watch interval (default 1000 milliseconds).
 * Use `--quiet` or `-q` to specify that no console logging should be used for file events.
+
+### Contributing
+
+After cloning the repo to your machine, you will need to install the dependencies:
+
+```bash
+npm install
+```
+
+Then you can run the lr-server bin:
+
+```bash
+./bin/lr-server /path/to/some.tpl /path/to/another.css
+```
+
+Tests can be run via npm scripts:
+
+```bash
+npm test
+```
+
+For code coverage reports use the following. the `./coverage` dir will have HTML files showing actual lines covered.
+
+```bash
+npm run test:coverage
+```
